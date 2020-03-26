@@ -208,7 +208,8 @@ func (s *server) metrics(w http.ResponseWriter, r *http.Request) {
 		f, err := os.Open(s.leasesPath)
 		if err != nil {
 			log.Warnln("could not open leases file:", err)
-			return err
+			leases.Set(0)
+			return nil
 		}
 		defer f.Close()
 		scanner := bufio.NewScanner(f)
